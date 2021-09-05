@@ -1,15 +1,15 @@
 //+------------------------------------------------------------------+
-//|                                              mql4compat.mqh v1.2 |
+//|                                              mql4compat.mqh v2.0 |
+//|                           https://github.com/eromawyn/mql4compat |
+//|                                       Copyright © 2021, Eromawyn |
+//| Original author :                                                |
 //|               Copyright © 2013, Arunas Pranckevicius(T-1000), UK |
-//|                                      irc://irc.omnitel.net/forex |
 //+------------------------------------------------------------------+
-#property copyright "Copyright © 2013, Arunas Pranckevicius(T-1000), UK"
-#property link      "irc://irc.omnitel.net/forex"
 
 // Updated MQL4 compatibility library. Originaly from http://www.mql5.com/en/articles/81
 // The initmql4.mqh  there is incomplete
 //---- Incompatible function groups have extention *MQL4. You need to modify your code for compatibility and add MQL4 to fuctions what give errors.
-// For examble, Object functions have new paramneter: the window handler as first parameter in MQL5.
+// For example, Object functions have new paramneter: the window handler as first parameter in MQL5.
 
 
 //--- declaration of constants
