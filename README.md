@@ -4,7 +4,9 @@
 
 This library allows to run most scripts and indicators from MetaTrader 4 on MetaTrader 5. Most of the functions are covered already and only trading logic is not added so for experts. You may find it convenient to check the MT4Orders library to convert EA too : https://www.mql5.com/en/code/16006 
 
-You will need to manually edit the script and do some modification, like calling InitMQL4Env() on each new Bar (or avoid doing it if you don’t need to access the variables this function updates to emulate MT4, since it’s a but slow), and replacing indicators with the *MQL4 equivalent. 
+You will need to manually edit the script and do some modification replacing indicators with the \*MQL4 equivalent function from this library. 
+
+No need to run InitMQL4Env with this mql4compat version >= 2.1 ! (Don’t, worry if you do, it will show a deprecation warning).
 
 Then the « converted » EA / Script will not work in MQL4 anylonger ! No problem, I (Eromawyn) have added a (very rough alpha version) library to keep the modified version compatible with both MQL4 and MQL5. And to make an EA compatible with both MT4 and MT5, I use the MQL_Easy framework : https://github.com/Denn1Ro/MQL_Easy
 
@@ -124,16 +126,19 @@ In indicators the manual tweaks are needed for OnInit() function and #property h
 
 In custom indicators please see how **#property** headers are in MQL5 and then swap input parameters definitions type **extern** to **input**. Also in MQL5 they are now **constants** and any attempt to change values will lead to errors. The fix is by adding temporary variables then copy input parameters values to them instead.
 
-On first line of your base code please add MQL4 reserved variables initialization function (the custom indicators will have warnings about OHLC/Time/Volume reserved variables if they are used in **OnCalculate()** function, safe to ignore): 
+No longer need to call function InitMQL4Env() as of version 2.1 !! (Much faster this way !).
 
- 
+## Changelog
 
-```MQL5
-// -- Init MQL4 compatible environment
-   InitMQL4Env();
-```
+Changelog only kept since version 2.0 ...
 
+### Version 2.0
+- First published version on github by Eromawyn
+- Compilation fixes for MQL5 build 2981
+- Adds a library to make a ported script / EA run back in MT4
 
+### Version 2.1
+- InitMQL4Env() function deprecated. And faster since this compatibility function was notoriously slow.
 
 ### Credits
 

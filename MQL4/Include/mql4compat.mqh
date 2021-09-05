@@ -12,10 +12,14 @@
 // but in case, don’t hesitate to open a bug or send patches on github :
 // https://github.com/eromawyn/mql4compat
 
-// Fake init function for MQL4 in MT4 !
-void InitMQL4Env() 
+void InitMQL4Env()
 {
-	return;
+	static bool runIt = false;
+	
+	if( ! runIt ) {
+		Print ("No need to run InitMQL4Env with this mql4compat version >= 2.1 !");
+		runIt = true;
+	}
 }
 
 int TFMigrate(int tf) {

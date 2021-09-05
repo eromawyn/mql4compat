@@ -1,9 +1,9 @@
 //+------------------------------------------------------------------+
-//|                                              mql4compat.mqh v2.0 |
+//|                                              mql4compat.mqh v2.1 |
 //|                           https://github.com/eromawyn/mql4compat |
-//|                                       Copyright © 2021, Eromawyn |
+//|                                     Copyright (c) 2021, Eromawyn |
 //| Original author :                                                |
-//|               Copyright © 2013, Arunas Pranckevicius(T-1000), UK |
+//|             Copyright (c) 2013, Arunas Pranckevicius(T-1000), UK |
 //+------------------------------------------------------------------+
 
 // Updated MQL4 compatibility library. Originaly from http://www.mql5.com/en/articles/81
@@ -151,80 +151,54 @@ ENUM_TIMEFRAMES TFMigrate(int tf)
 
 
 // Predefined Variables
-
-double Ask()
+double __Ask()
 {
    MqlTick last_tick;
    SymbolInfoTick(_Symbol,last_tick);
    return last_tick.ask;
 }  
 
-double Bid()
+double __Bid()
 {
 MqlTick last_tick;
 SymbolInfoTick(_Symbol,last_tick);
 return last_tick.bid;
-}  
-
-void __Open(double &_Open[]) 
-{ 
-CopyOpen(_Symbol,_Period,0,Bars(_Symbol,_Period),_Open);
-ArraySetAsSeries(_Open,true);
-} 
-
-void __Close(double &_Close[]) 
-{ 
-CopyClose(_Symbol,_Period,0,Bars(_Symbol,_Period),_Close);
-ArraySetAsSeries(_Close,true);
-} 
-
-void __High(double &_High[])
-{
-CopyHigh(_Symbol,_Period,0,Bars(_Symbol,_Period),_High);
-ArraySetAsSeries(_High,true);
 }
 
-void __Low(double &_Low[])
-{
-CopyLow(_Symbol,_Period,0,Bars(_Symbol,_Period),_Low);
-ArraySetAsSeries(_Low,true);
-}
+#define Ask __Ask()
+#define Bid __Bid()
 
-void __Time(datetime &_Time[])
-{
-CopyTime(_Symbol,_Period,0,Bars(_Symbol,_Period),_Time);
-ArraySetAsSeries(_Time,true);
-}
-
-void __Volume(long &_Volume[])
-{
-CopyTickVolume(_Symbol,_Period,0,Bars(_Symbol,_Period),_Volume);
-}
-
-double Ask = Ask();
-double Bid = Bid();
 int Bars=Bars(_Symbol,_Period);
 int Digits=_Digits;
-double Open[];
-double Close[];
-double High[];
-double Low[];
-datetime Time[];
 bool True = true;
 bool False = false;
 
+#define DefineBroker(NAME,TYPE) \
+class NAME##Broker \
+{ \
+  public: \
+    TYPE operator[](int b) \
+    { \
+      return i##NAME(_Symbol, _Period, b); \
+    } \
+}; \
+NAME##Broker NAME;
+
+DefineBroker(Time, datetime);
+DefineBroker(Open, double);
+DefineBroker(High, double);
+DefineBroker(Low, double);
+DefineBroker(Close, double);
+DefineBroker(Volume, long);
+
 void InitMQL4Env()
 {
-ArrayResize(High,Bars(_Symbol,_Period));
-ArrayResize(Low,Bars(_Symbol,_Period));
-ArrayResize(Open,Bars(_Symbol,_Period));
-ArrayResize(Close,Bars(_Symbol,_Period));
-ArrayResize(Time,Bars(_Symbol,_Period));
-__High(High);
-__Low(Low);
-__Open(Open);
-__Close(Close);
-__Time(Time);
+	static bool runIt = false;
+	
+	if( ! runIt ) {
+		Print ("No need to run InitMQL4Env with this mql4compat version >= 2.1 !");
+		runIt = true;
+	}
 }
 
 
