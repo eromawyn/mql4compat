@@ -2,9 +2,17 @@
 
 ## About
 
-This library allows to run most scripts and indicators from MetaTrader 4 on MetaTrader 5. Most of the functions are covered already and only trading logic is not added so for experts because the trading mechanics need to be rewritten.
+This library allows to run most scripts and indicators from MetaTrader 4 on MetaTrader 5. Most of the functions are covered already and only trading logic is not added so for experts. You may find it convenient to check the MT4Orders library to convert EA too : https://www.mql5.com/en/code/16006 
+
+You will need to manually edit the script and do some modification, like calling InitMQL4Env() on each new Bar (or avoid doing it if you don’t need to access the variables this function updates to emulate MT4, since it’s a but slow), and replacing indicators with the *MQL4 equivalent. 
+
+Then the « converted » EA / Script will not work in MQL4 anylonger ! No problem, I (Eromawyn) have added a (very rough alpha version) library to keep the modified version compatible with both MQL4 and MQL5. And to make an EA compatible with both MT4 and MT5, I use the MQL_Easy framework : https://github.com/Denn1Ro/MQL_Easy
 
 ## History
+
+First version was published on MQL5.com in may 2010 : http://www.mql5.com/en/articles/81
+
+Arunas Pranckevicius (T-1000) published kept maintaining this file between 2013 and 2016 : https://www.mql5.com/en/code/1787
 
 This very popular library was unmaintained for years. It didn’t compile with MT5 build 2981 (June 2021). I’m pretty sure this library is on the hard disk of many MQL4 / MQL5 coders. Here I try to keep a maintained version of the original library. 
 
@@ -14,7 +22,7 @@ Please don’t hesitate to send patches / merge request on github :  https://git
 
 This library has covered most of functions except EA trading mechanisms. Also for the functions what give errors on MT5 there are alternative functions with same name just with MQL4 ending. Most of them are for conflicting functions what already have same names in MQL5. The original article led only to skeleton library so this version of library is mostly filled with MQL4 functions.  Please see library source code with search pattern "MQL4" for specific functions names.
 
-**TODO:** EA trading mechanics for Orders sending and control. Some functions have generic stubs and will give according error messages in log. The return code for those are always **-1**.
+**TODO:** EA trading mechanics for Orders sending and control. Some functions have generic stubs and will give according error messages in log. The return code for those are always **-1**. Meanwhile, you may find it convenient to check the MT4Orders library : https://www.mql5.com/en/code/16006 
 
 **Installation:**
 
@@ -120,7 +128,7 @@ On first line of your base code please add MQL4 reserved variables initializatio
 
  
 
-```
+```MQL5
 // -- Init MQL4 compatible environment
    InitMQL4Env();
 ```
