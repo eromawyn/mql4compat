@@ -1,6 +1,16 @@
 # mql4compat
 
+## About
+
 This library allows to run most scripts and indicators from MetaTrader 4 on MetaTrader 5. Most of the functions are covered already and only trading logic is not added so for experts because the trading mechanics need to be rewritten.
+
+## History
+
+This very popular library was unmaintained for years. It didn’t compile with MT5 build 2981 (June 2021). I’m pretty sure this library is on the hard disk of many MQL4 / MQL5 coders. Here I try to keep a maintained version of the original library. 
+
+Please don’t hesitate to send patches / merge request on github :  https://github.com/eromawyn/mql4compat
+
+## Instruction for usage
 
 This library has covered most of functions except EA trading mechanisms. Also for the functions what give errors on MT5 there are alternative functions with same name just with MQL4 ending. Most of them are for conflicting functions what already have same names in MQL5. The original article led only to skeleton library so this version of library is mostly filled with MQL4 functions.  Please see library source code with search pattern "MQL4" for specific functions names.
 

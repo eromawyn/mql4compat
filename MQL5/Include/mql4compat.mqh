@@ -8,7 +8,7 @@
 
 // Updated MQL4 compatibility library. Originaly from http://www.mql5.com/en/articles/81
 // The initmql4.mqh  there is incomplete
-//---- Incmpatible function groups have extention *MQL4. You need to modify your code for compatibility and add MQL4 to fuctions what give errors.
+//---- Incompatible function groups have extention *MQL4. You need to modify your code for compatibility and add MQL4 to fuctions what give errors.
 // For examble, Object functions have new paramneter: the window handler as first parameter in MQL5.
 
 
@@ -186,7 +186,7 @@ ArraySetAsSeries(_High,true);
 
 void __Low(double &_Low[])
 {
-CopyHigh(_Symbol,_Period,0,Bars(_Symbol,_Period),_Low);
+CopyLow(_Symbol,_Period,0,Bars(_Symbol,_Period),_Low);
 ArraySetAsSeries(_Low,true);
 }
 
@@ -385,7 +385,7 @@ int ArraySortMQL4(double &array[], int count=WHOLE_ARRAY, int start=0, int sort_
 // Checkup
 bool IsConnected()
 {
-   return TerminalInfoInteger(TERMINAL_CONNECTED);
+   return (bool) TerminalInfoInteger(TERMINAL_CONNECTED);
 }
 
 bool IsDemo()
@@ -398,44 +398,44 @@ bool IsDemo()
 
 bool IsDllsAllowed()
 {
-   return TerminalInfoInteger(TERMINAL_DLLS_ALLOWED);
+   return (bool) TerminalInfoInteger(TERMINAL_DLLS_ALLOWED);
 }
 
 bool IsExpertEnabled()
 {
-   return AccountInfoInteger(ACCOUNT_TRADE_EXPERT);
+   return (bool) AccountInfoInteger(ACCOUNT_TRADE_EXPERT);
 }
 
 bool IsLibrariesAllowed()
 {
-   return MQL5InfoInteger(MQL5_DLLS_ALLOWED);
+   return (bool) MQL5InfoInteger(MQL5_DLLS_ALLOWED);
 }
 
 bool IsOptimization()
 {
-   return MQL5InfoInteger(MQL5_DLLS_ALLOWED);
+   return (bool) MQL5InfoInteger(MQL5_DLLS_ALLOWED);
 }
 
 bool IsTesting()
 {
-   return MQL5InfoInteger(MQL5_TESTING);
+   return (bool) MQL5InfoInteger(MQL5_TESTING);
 }
 
 bool IsTradeAllowed()
 {
-   return MQL5InfoInteger(MQL5_TRADE_ALLOWED);
+   return (bool) MQL5InfoInteger(MQL5_TRADE_ALLOWED);
 }
 
 bool IsTradeContextBusy()
 {
 // Unimplemented stub
 Print("Error: IsTradeContextBusy() - Not implemented stub.");
-return -1;
+return false;
 }
 
 bool IsVisualMode()
 {
-   return MQL5InfoInteger(MQL5_VISUAL_MODE);
+   return (bool) MQL5InfoInteger(MQL5_VISUAL_MODE);
 }
 
 //Client Terminal
@@ -540,11 +540,11 @@ string StringConcatenateMQL4(string _str1,string _str2,string _str3="",string _s
         string _str33="",string _str34="",string _str35="",string _str36="",string _str37="",string _str38="",string _str39="",string _str40="",
         string _str41="",string _str42="",string _str43="",string _str44="",string _str45="",string _str46="",string _str47="",string _str48="",
         string _str49="",string _str50="",string _str51="",string _str52="",string _str53="",string _str54="",string _str55="",string _str56="",
-        string _str57="",string _str58="",string _str59="",string _str60="",string _str61="",string _str62="",string _str63="",string _str64="")
+        string _str57="",string _str58="",string _str59="",string _str60="",string _str61="",string _str62="",string _str63="")
 {
 string __s;
 
-StringConcatenate(_str62,_str63,_str64);
+StringConcatenate(_str62,_str63,"");
 StringConcatenate(__s,_str1,_str2,_str3,_str4,_str5,_str6,_str7,_str8,_str9,_str10,_str11,_str12,_str13,_str14,_str15,_str16,
                             _str17,_str18,_str19,_str20,_str21,_str22,_str23,_str24,_str25,_str26,_str27,_str28,_str29,_str30,_str31,
                             _str32,_str33,_str34,_str35,_str36,_str37,_str38,_str39,_str40,_str41,_str42,_str43,_str44,_str45,_str46,
@@ -1671,8 +1671,8 @@ double iWPRMQL4(string symbol, int tf, int period, int shift)
       return(CopyBufferMQL4(handle,0,shift));
 }
 
-//Timeseries Access
-
+//Timeseries Access - This code now exists with MQL5 too - TODO, remove this entirely.
+/* 
 int iBars(string symbol, int tf)
 {
    ENUM_TIMEFRAMES timeframe=TFMigrate(tf);
@@ -1715,7 +1715,6 @@ double iClose(string symbol, int tf, int _index)
         return(Arr[_index]);
    else return(-1);
 }
-
 
 double iHigh(string _symbol,int _timeframe, int _index)
 {
@@ -1854,6 +1853,8 @@ int iLowest(string _symbol,int _tf,int _type,int _count=WHOLE_ARRAY,int _start=0
      }
    return(0);
 }
+*/
+
 
 //Chart Operations
 void HideTestIndicators(bool hide)
@@ -1919,7 +1920,7 @@ int WindowHandle(string symbol, int tf)
 
 bool WindowIsVisible(int index)
 {
-return ChartGetInteger(0,CHART_WINDOW_IS_VISIBLE,index);
+return (bool) ChartGetInteger(0,CHART_WINDOW_IS_VISIBLE,index);
 }
 
 int WindowOnDropped()
