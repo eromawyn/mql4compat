@@ -6,7 +6,7 @@ This library allows to run most scripts and indicators from MetaTrader 4 on Meta
 
 You will need to manually edit the script and do some modification replacing indicators with the \*MQL4 equivalent function from this library. 
 
-No need to run InitMQL4Env with this mql4compat version >= 2.1 ! (Don’t, worry if you do, it will show a deprecation warning).
+InitMQL4Env is only needed if you use Bars global variable with mql4compat version >= 2.2 ! 
 
 Then the « converted » EA / Script will not work in MQL4 anylonger ! No problem, I (Eromawyn) have added a (very rough alpha version) library to keep the modified version compatible with both MQL4 and MQL5. And to make an EA compatible with both MT4 and MT5, I use the MQL_Easy framework : https://github.com/Denn1Ro/MQL_Easy
 
@@ -126,7 +126,13 @@ In indicators the manual tweaks are needed for OnInit() function and #property h
 
 In custom indicators please see how **#property** headers are in MQL5 and then swap input parameters definitions type **extern** to **input**. Also in MQL5 they are now **constants** and any attempt to change values will lead to errors. The fix is by adding temporary variables then copy input parameters values to them instead.
 
-No longer need to call function InitMQL4Env() as of version 2.1 !! (Much faster this way !).
+On first line of your base code please add MQL4 reserved variables initialization function (as of version 2.2, only needed if you use MQL4 global variable Bars) :
+
+```MQL5
+// -- Init MQL4 compatible environment
+   InitMQL4Env();
+```
+
 
 ## Changelog
 
@@ -139,6 +145,9 @@ Changelog only kept since version 2.0 ...
 
 ### Version 2.1
 - InitMQL4Env() function deprecated. And faster since this compatibility function was notoriously slow.
+
+### Version 2.2
+- InitMQL4Env() unfortunately still needed, but only if you use Bars global variable. 
 
 ### Credits
 

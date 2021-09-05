@@ -1,5 +1,5 @@
 //+------------------------------------------------------------------+
-//|                                              mql4compat.mqh v2.1 |
+//|                                              mql4compat.mqh v2.2 |
 //|                           https://github.com/eromawyn/mql4compat |
 //|                                     Copyright (c) 2021, Eromawyn |
 //| Original author :                                                |
@@ -169,7 +169,7 @@ double __Bid()
 #define Bid   __Bid()
 
 /* Bars variable */
-#define Bars  Bars(_Symbol,_Period)
+double Bars = Bars(_Symbol,_Period);
 
 int Digits=_Digits;
 bool True = true;
@@ -197,12 +197,8 @@ DefineBroker(Volume, long);
 /* Deprecated InitMQL4Env() variable */
 void InitMQL4Env()
 {
-	static bool runIt = false;
-	
-	if( ! runIt ) {
-		Print ("No need to run InitMQL4Env with this mql4compat version >= 2.1 !");
-		runIt = true;
-	}
+   // Bars conflicts with Bars function, so it’s impossible to replace it with a 
+ 	Bars = Bars(_Symbol,_Period);
 }
 
 
