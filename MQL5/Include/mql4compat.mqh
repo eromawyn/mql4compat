@@ -149,7 +149,7 @@ ENUM_TIMEFRAMES TFMigrate(int tf)
      }
   }
 
-
+/* Ask and Bid variables */
 // Predefined Variables
 double __Ask()
 {
@@ -160,19 +160,22 @@ double __Ask()
 
 double __Bid()
 {
-MqlTick last_tick;
-SymbolInfoTick(_Symbol,last_tick);
-return last_tick.bid;
+	MqlTick last_tick;
+	SymbolInfoTick(_Symbol,last_tick);
+	return last_tick.bid;
 }
 
-#define Ask __Ask()
-#define Bid __Bid()
+#define Ask   __Ask()
+#define Bid   __Bid()
 
-int Bars=Bars(_Symbol,_Period);
+/* Bars variable */
+#define Bars  Bars(_Symbol,_Period)
+
 int Digits=_Digits;
 bool True = true;
 bool False = false;
 
+/* Open[], High[], Low[], Close[] and Time[] variables */
 #define DefineBroker(NAME,TYPE) \
 class NAME##Broker \
 { \
@@ -191,6 +194,7 @@ DefineBroker(Low, double);
 DefineBroker(Close, double);
 DefineBroker(Volume, long);
 
+/* Deprecated InitMQL4Env() variable */
 void InitMQL4Env()
 {
 	static bool runIt = false;
