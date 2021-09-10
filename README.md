@@ -26,7 +26,7 @@ This library has covered most of functions except EA trading mechanisms. Also fo
 
 **TODO:** EA trading mechanics for Orders sending and control. Some functions have generic stubs and will give according error messages in log. The return code for those are always **-1**. Meanwhile, you may find it convenient to check the MT4Orders library : https://www.mql5.com/en/code/16006 
 
-**Installation:**
+### Installation
 
 Put mql4compat.mqh in your Include directory (it resides on your Windows user roaming profile).
 
@@ -126,6 +126,7 @@ In indicators the manual tweaks are needed for OnInit() function and #property h
 
 In custom indicators please see how **#property** headers are in MQL5 and then swap input parameters definitions type **extern** to **input**. Also in MQL5 they are now **constants** and any attempt to change values will lead to errors. The fix is by adding temporary variables then copy input parameters values to them instead.
 
+### InitMQL4Env()
 On first line of your base code please add MQL4 reserved variables initialization function (as of version 2.2, only needed if you use MQL4 global variable Bars) :
 
 ```MQL5
@@ -133,6 +134,7 @@ On first line of your base code please add MQL4 reserved variables initializatio
    InitMQL4Env();
 ```
 
+Using define for Bars would also affect the Bars function. If you know of any trick which would allow to redefine it while keeping the Bars() function available, keep free to send a patch.
 
 ## Changelog
 
@@ -148,6 +150,10 @@ Changelog only kept since version 2.0 ...
 
 ### Version 2.2
 - InitMQL4Env() unfortunately still needed, but only if you use Bars global variable. 
+
+### Version 2.3
+- Implemented AccountFreeMarginCheck()
+- added support for some obsolete MQL4 function : CurTime(), HistoryTotal(), LocalTime()
 
 ### Credits
 

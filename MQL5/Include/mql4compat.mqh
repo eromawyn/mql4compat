@@ -150,23 +150,10 @@ ENUM_TIMEFRAMES TFMigrate(int tf)
   }
 
 /* Ask and Bid variables */
+
 // Predefined Variables
-double __Ask()
-{
-   MqlTick last_tick;
-   SymbolInfoTick(_Symbol,last_tick);
-   return last_tick.ask;
-}  
-
-double __Bid()
-{
-	MqlTick last_tick;
-	SymbolInfoTick(_Symbol,last_tick);
-	return last_tick.bid;
-}
-
-#define Ask   __Ask()
-#define Bid   __Bid()
+#define Bid (::SymbolInfoDouble(_Symbol, ::SYMBOL_BID))
+#define Ask (::SymbolInfoDouble(_Symbol, ::SYMBOL_ASK))
 
 /* Bars variable */
 double Bars = Bars(_Symbol,_Period);
@@ -232,11 +219,13 @@ double AccountFreeMargin()
 {
    return AccountInfoDouble(ACCOUNT_FREEMARGIN);
 }
-double AccountFreeMarginCheck(string _symbol, int _cmd, double _volume)
+double AccountFreeMarginCheck(const string Symb,const int Cmd,const double dVolume)
 {
-// Unimplemented stub
-Print("Error: AccountFreeMarginCheck() - Not implemented stub.");
-return -1;
+   double Margin;
+
+   return(::OrderCalcMargin((ENUM_ORDER_TYPE)Cmd, Symb, dVolume,
+          ::SymbolInfoDouble(Symb,(Cmd==::ORDER_TYPE_BUY) ? ::SYMBOL_ASK : ::SYMBOL_BID),Margin) ?
+          ::AccountInfoDouble(::ACCOUNT_MARGIN_FREE) - Margin : -1);
 }
 
 double AccountFreeMarginMode()
@@ -762,6 +751,10 @@ int Year()
    TimeCurrent(tm);
    return(tm.year);
 }
+// Obsolete MQL4 function
+#define CurTime() TimeCurrent()
+#define HistoryTotal() OrdersHistoryTotal()
+#define LocalTime() TimeLocal()
 
 //File Functions
 int FileOpenHistory(string filename, int mode, int delimiter=';')
