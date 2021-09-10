@@ -134,7 +134,7 @@ On first line of your base code please add MQL4 reserved variables initializatio
    InitMQL4Env();
 ```
 
-Using define for Bars would also affect the Bars function. If you know of any trick which would allow to redefine it while keeping the Bars() function available, keep free to send a patch.
+Using define for Bars would also affect the Bars function. If you know of any trick which would allow to redefine it while keeping the Bars() function available, feel free to send a patch.
 
 ## Changelog
 
