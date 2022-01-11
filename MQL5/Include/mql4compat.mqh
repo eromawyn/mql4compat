@@ -430,9 +430,9 @@ double MarketInfo(string symbol, int type)
       case MODE_TIME:
          return((double)  SymbolInfoInteger(symbol,SYMBOL_TIME));
       case MODE_BID:
-         return(Bid);
+         return (SymbolInfoDouble(symbol, SYMBOL_BID));
       case MODE_ASK:
-         return(Ask);
+         return(SymbolInfoDouble(symbol, SYMBOL_ASK));
       case MODE_POINT:
          return(SymbolInfoDouble(symbol,SYMBOL_POINT));
       case MODE_DIGITS:
